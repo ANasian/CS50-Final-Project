@@ -1,0 +1,75 @@
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: xx-large;
+    font-family: Courier;
+}
+
+
+nav .navbar-brand .red
+{
+    color: #ea433b;
+}
+
+nav .navbar-brand .yellow
+{
+    color: #f5b82e;
+}
+
+main .form-control
+{
+    /* Center form controls */
+    display: inline-block;
+
+    /* Override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* Scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* Center contents */
+    text-align: center;
+}
+
+main img
+{
+    /* Constrain images on small screens */
+    max-width: 100%;
+}
+
+nav .dropdown-menu
+{
+    position: absolute;
+    left: -100px;
+}
+
+.apology
+{
+   color: red;
+   text-align: center;
+   font-size: 40px;
+}
+
+.containerChart {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    list-style: none;
+
+}
+
+
+.bar {
+    width: 35vw;
+    height: 45vh;
+}
+
+.pie {
+    width: 25vw;
+    height: 40vh;
+}
+
+

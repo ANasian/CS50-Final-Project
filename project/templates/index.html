@@ -1,0 +1,145 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+
+   <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="4"></td>
+                <td><b>{{ grand_total }}</b></td>
+            </tr>
+        </tfoot>
+        <tbody>
+           {% for stock in portfolio %}
+               {% if stock.shares != 0 %}
+            <tr>
+                <td>{{ stock.symbol }}</td>
+                <td>{{ stock.name }}</td>
+                <td>{{ stock.shares }}</td>
+                <td>{{ stock.price }}</td>
+                <td>{{ stock.value }}</td>
+            </tr>
+                {% endif %}
+          {% endfor %}
+            <tr>
+                <td>CASH</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{ cash }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br><br><br><br>
+
+    <ul class="containerChart">
+        <li class="pie">
+            <h5>Portfolio Allocation</h5>
+            <canvas id = "myChart"></canvas>
+        </li>
+        <li class="bar">
+            <h5>Portfolio Distribution Value</h5>
+            <canvas id = "myChart2"></canvas>
+        </li>
+    </ul>
+
+
+        <script >
+            function getRandomColor() {
+                var letters = '0123456789ABCDEF'.split('');
+                var color = '#';
+                var colors = [];
+                    for (var i = 0; i < 6; i++ ) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                return color;
+            }
+
+            function arrColors() {
+                var colors = [];
+                    for (var i = 0; i < 50; i++) {
+                        var color = getRandomColor();
+                        colors.push(color);
+                    }
+                    return colors;
+                }
+
+            let ctx = document.getElementById('myChart').getContext('2d');
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels:  {{ symbol | tojson }},
+                    datasets: [{
+                        backgroundColor: arrColors(),
+                        borderAlign: 'inner',
+                        data: {{ data | tojson }}
+                }]
+              },
+              options: {
+                  maintainAspectRatio: false,
+              }
+        });
+        </script>
+
+
+        <script>
+
+            function getRandomColor() {
+                var letters = '0123456789ABCDEF'.split('');
+                var color = '#';
+                var colors = [];
+                    for (var i = 0; i < 6; i++ ) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                return color;
+            }
+
+            function arrColors() {
+                var colors = [];
+                    for (var i = 0; i < 50; i++) {
+                        var color = getRandomColor();
+                        colors.push(color);
+                    }
+                    return colors;
+                }
+
+            let ctx2 = document.getElementById('myChart2').getContext('2d');
+            var myBarChart = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels:  {{ symbol | tojson }},
+                    datasets: [{
+                        barPercentage: 0.8,
+                        barThickness: 'flex',
+                        backgroundColor: arrColors(),
+                        data: {{ value | tojson }}
+                }]
+              },
+              options: {
+
+                  maintainAspectRatio: false,
+                  legend: {
+                      display: false,
+                  }
+              }
+        });
+
+        </script>
+
+
+{% endblock %}
+
